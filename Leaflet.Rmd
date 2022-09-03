@@ -1,0 +1,30 @@
+---
+title: "Leaflet"
+author: "Lorenz Hexemer"
+date: "2022-09-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Product Week 2
+
+Power pants positions around the world.
+
+```{r load , echo=FALSE}
+library(leaflet)
+ plants = read.csv("operational-nuclear-power-stations.csv")
+ plantPos = data.frame(x=plants$Latitude,y=plants$Longitude,size=plants$Net.Capacity..MW)
+ plantPos = plantPos[complete.cases(plantPos),]
+ 
+leaflet() %>%
+addTiles(options = providerTileOptions(minZoom = 2, maxZoom = 12)) %>%
+setView(lat=mean(plantPos$x), lng=mean(plantPos$y), 2) %>%
+addCircles(weight = 1,
+           lat = plantPos$x,
+           lng = plantPos$y,
+           radius =  sqrt(plantPos$size)*400)
+```
+
