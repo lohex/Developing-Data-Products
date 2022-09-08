@@ -1,0 +1,26 @@
+---
+title: "Plotly"
+author: "Lorenz Hexemer"
+date: "2022-09-08"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+```{r message=FALSE, warning=FALSE}
+data("iris")
+library(plotly)
+```
+
+
+## This is a presentation
+You will see plotly in action on the next slide!
+
+## The iris dataset in action
+```{r ,echo=FALSE}
+fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length, type="scatter",  mode = "markers", color = ~Species, colors = "Set1",
+               text = ~paste("Sepal width: ", Sepal.Width, '$<br>petal witdth:', Petal.Width))
+fig
+```
+
