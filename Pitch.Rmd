@@ -1,0 +1,60 @@
+---
+title: "Pitch"
+author: "Lorenz Hexemer"
+date: "2022-09-13"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+## Usecase
+
+* You got tested for a virus infection by a quick test multiple times
+
+* Due to uncertainty in the tests, the result sometimes shows a positive and sometimes a negative result
+
+* Find out which scenario (infected or not) is more likely, given a series of results.
+
+## Manual
+
+* Select the sensitivity and specificity of the quick test.
+
+* Select the result of the test (positive or negative)
+
+* If you used different test, tune sensitivity and specificity
+
+* The app calculates the probability of the given series of events under the two assumptions (infected or not)
+
+
+## The math behind the app
+
+In the infected scenario, the probability of a series depends on the sensitivity: The Probability of  
+the first and the third test beeing positive and the second beeing negative if you are in fact infected is:
+
+```{r echo=TRUE, message=TRUE}
+  sensi <- 0.73
+  p_infected <- prod(c(sensi, 1-sensi,sensi))
+  p_infected
+```
+
+In the healthy scenario, the probability of a series depends on the specificity: The probability of  
+the same series of results if you are in fact health is:
+
+```{r echo=TRUE, message=TRUE}
+  specificity <- 0.93
+  p_healthy <- prod(c(1 - specificity,specificity,1-specificity))
+  p_healthy
+```
+## A shiny app
+The probabilities of the results are also visualized to help you interpreting the results.
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(png)
+myimg <- readPNG("shiny_app.png")
+plot.new()
+rasterImage(myimg,0,0,1,1)
+```
+
+
